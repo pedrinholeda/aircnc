@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
 
 const routes = require("./routes"); // caminho relativo para arquivo.
 
@@ -28,7 +30,9 @@ mongoose.connect("mongodb://localhost/Aircnc", {
 // req.params = Acessar route params (para edição, delete)
 // req.body = Acessar corpo da requisição (para criação)
 
+app.use(cors());
 app.use(express.json());
+app.use("/files", express.static(path.resolve(__dirname, "..", "uploads"))); //usando o path para manipular imagem
 app.use(routes);
 
 app.listen(3333);
